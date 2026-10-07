@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BLOXBASE — Blox Фрукты Guide</title>
+<meta name="description" content="BloxBase — визуальный гайд по Blox Фрукты. Фрукты, моря, боссы, билды и карта.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#030606; --panel:#07100f; --cyan:#35e7e1; --cyan2:#7af8ef;
+  --text:#f5ffff; --muted:#9aa9a7; --line:rgba(255,255,255,.15);
+  --shadow:0 20px 70px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit}
+.nav{
+  position:fixed;z-index:20;top:0;left:0;right:0;height:72px;
+  display:flex;align-items:center;justify-content:space-between;padding:0 6vw;
+  background:linear-gradient(180deg,rgba(0,0,0,.72),rgba(0,0,0,0));
+  transition:.3s
+}
+.nav.scrolled{background:rgba(2,6,6,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font-size:15px;font-weight:800;letter-spacing:4px}
+.navlinks{display:flex;gap:26px;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:#dce6e5}
+.navlinks a{opacity:.75;transition:.25s}.navlinks a:hover{color:var(--cyan);opacity:1}
+.search-btn{border:0;background:none;color:white;font-size:17px;cursor:pointer;opacity:.8}
+.hero{
+  min-height:760px;height:100vh;position:relative;display:flex;align-items:center;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.82) 0%,rgba(0,0,0,.48) 43%,rgba(0,0,0,.2) 100%),
+    linear-gradient(0deg,#030606 0%,transparent 35%),
+    url("https://wikiassets.net/bloxfruits-3-e6227a/images/3215efd693d8f904b95003b51725e94e.webp") center/cover;
+}
+.hero:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 68% 45%,rgba(53,231,225,.14),transparent 28%);pointer-events:none}
+.hero-inner{position:relative;z-index:2;width:min(1120px,88vw);margin:auto;padding-top:40px}
+.eyebrow{font-size:10px;letter-spacing:4px;color:#cbd8d6;margin-bottom:22px}
+.hero h1{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(44px,7vw,88px);line-height:.96;margin:0 0 18px;font-weight:800;letter-spacing:-3px;max-width:720px}
+.hero h1 span{color:var(--cyan)}
+.hero p{max-width:520px;color:#d1dcda;font-size:12px;line-height:1.9}
+.hero-actions{display:flex;gap:12px;margin-top:30px}
+.btn{border:1px solid rgba(53,231,225,.7);background:var(--cyan);color:#00100f;padding:14px 22px;font-size:10px;font-weight:800;letter-spacing:1.6px;text-transform:uppercase;cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(53,231,225,.25)}
+.btn.ghost{background:rgba(0,0,0,.25);color:white;border-color:rgba(255,255,255,.3)}
+.hero-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:35px;margin-top:90px;max-width:700px}
+.meta{border-top:1px solid var(--line);padding-top:15px}
+.meta strong{display:block;color:var(--cyan);font-size:18px;margin-bottom:7px}
+.meta small{color:#9eaaa8;font-size:9px;line-height:1.6}
+.side-dots{position:absolute;right:5vw;top:42%;z-index:3;display:grid;gap:12px}
+.side-dots span{font-size:9px;color:#798482}.side-dots .active{color:white;font-weight:700}
+.section{padding:105px 7vw;position:relative}
+.section-head{text-align:center;margin-bottom:48px}
+.kicker{font-size:9px;letter-spacing:3px;color:var(--cyan);text-transform:uppercase}
+.section h2{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(27px,4vw,48px);margin:13px 0 8px;letter-spacing:-1.5px}
+.section-head p{font-size:11px;color:#8d9b99;margin:0}
+.tour-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:1000px;margin:auto}
+.tour{
+  height:270px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);
+  transition:.45s;cursor:pointer;background:#111;
+}
+.tour:nth-child(2){transform:translateY(-18px);border-color:rgba(53,231,225,.55)}
+.tour:hover{transform:translateY(-15px) scale(1.025);border-color:var(--cyan)}
+.tour img{width:100%;height:100%;object-fit:cover;transition:.7s;filter:saturate(.75)}
+.tour:hover img{transform:scale(1.08);filter:saturate(1)}
+.tour:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 30%,rgba(0,0,0,.88))}
+.tour-copy{position:absolute;z-index:2;bottom:18px;left:18px}
+.tour-copy b{font-size:13px}.tour-copy span{display:block;font-size:8px;color:#aab8b5;margin-top:6px}
+.dark-divider{height:1px;background:var(--line);width:78%;margin:auto}
+.feature{
+  min-height:590px;padding:90px 7vw;display:grid;grid-template-columns:42% 58%;align-items:center;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.6) 48%,rgba(0,0,0,.35)),
+    url("https://wikiassets.net/bloxfruits-3bec24/images/91ec0031165a3a12d2aefc215549384b.webp") center/cover;
+}
+.feature-copy{max-width:520px}
+.feature h2{font-family:"Space Grotesk",Inter,sans-serif;font-size:clamp(35px,5vw,62px);line-height:1.02;margin:15px 0;color:var(--cyan)}
+.feature p{font-size:11px;line-height:1.9;color:#d0d9d7}
+.video-btn{display:inline-flex;align-items:center;gap:12px;margin:28px 0;border:0;background:none;color:white;font-size:9px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.play{width:40px;height:40px;border:2px solid white;border-radius:50%;display:grid;place-items:center}
+.gallery{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:9px;align-items:end}
+.gallery img{width:100%;height:145px;object-fit:cover;filter:saturate(.7);opacity:.9;transition:.3s}
+.gallery img:first-child{height:245px}.gallery img:hover{filter:saturate(1.1);opacity:1;transform:translateY(-5px)}
+.gallery .g{position:relative}.gallery .g:after{content:"▶";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:32px;height:32px;border:1px solid rgba(255,255,255,.7);border-radius:50%;display:grid;place-items:center;font-size:10px}
+.explore{padding-top:105px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:1050px;margin:auto}
+.card{min-height:245px;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0a0e0e}
+.card img{width:100%;height:100%;min-height:245px;object-fit:cover;transition:.6s;filter:brightness(.72)}
+.card:hover img{transform:scale(1.06);filter:brightness(.95)}
+.card:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 25%,rgba(0,0,0,.9))}
+.card-copy{position:absolute;z-index:2;left:20px;right:20px;bottom:20px}
+.card-copy .num{color:var(--cyan);font-size:9px;letter-spacing:2px}
+.card-copy h3{font-size:22px;margin:6px 0}
+.card-copy p{font-size:9px;line-height:1.6;color:#aab6b4}
+.fruits{padding-top:110px}
+.toolbar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:25px auto 35px}
+.filter{background:transparent;color:#b5c0be;border:1px solid var(--line);padding:9px 13px;font-size:9px;letter-spacing:1px;cursor:pointer}
+.filter.active,.filter:hover{background:var(--cyan);color:#00100f;border-color:var(--cyan)}
+.fruit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:1100px;margin:auto}
+.fruit{position:relative;height:205px;overflow:hidden;border:1px solid rgba(255,255,255,.09);cursor:pointer;background:radial-gradient(circle at 50% 35%,rgba(53,231,225,.12),transparent 50%),#07100f}
+.fruit img{width:100%;height:100%;object-fit:contain;padding:14px;filter:drop-shadow(0 12px 18px rgba(0,0,0,.55));transition:.4s}
+.fruit:hover img{filter:drop-shadow(0 18px 30px rgba(53,231,225,.25));transform:scale(1.09)}
+.fruit div{position:absolute;inset:auto 12px 12px;z-index:2}
+.fruit b{font-size:12px}.fruit small{display:block;color:var(--cyan);font-size:8px;margin-top:5px}
+.search-panel{max-width:850px;margin:0 auto 35px;display:flex;border-bottom:1px solid var(--line)}
+.search-panel input{width:100%;background:none;border:0;outline:0;color:white;padding:15px 5px;font-size:13px}
+.search-panel span{padding:15px 5px;color:var(--cyan)}
+.progress{
+  padding:100px 7vw;background:#050909;
+}
+.timeline{max-width:900px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.step{padding:30px;border-top:1px solid var(--line);position:relative}
+.step:not(:last-child){border-right:1px solid var(--line)}
+.step .n{font-size:10px;color:var(--cyan);letter-spacing:3px}
+.step h3{font-size:20px;margin:14px 0 8px}.step p{font-size:9px;line-height:1.7;color:#899694}
+.footer{padding:55px 7vw 30px;text-align:center;border-top:1px solid var(--line);background:#020505}
+.footer .logo{color:var(--cyan)}.footer p{font-size:8px;color:#697472;margin:15px auto;max-width:520px;line-height:1.7}
+.social{display:flex;justify-content:center;gap:22px;color:#a5b1af;font-size:11px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(10px);z-index:50;display:none;place-items:center;padding:25px}
+.modal.open{display:grid}
+.modal-box{width:min(600px,95vw);background:#07100f;border:1px solid rgba(53,231,225,.35);box-shadow:var(--shadow);padding:28px;position:relative}
+.close{position:absolute;right:15px;top:12px;border:0;background:none;color:white;font-size:22px;cursor:pointer}
+.modal-box h3{margin-top:0;color:var(--cyan);font-size:25px}.modal-box p{color:#a9b6b3;font-size:11px;line-height:1.8}
+@media(max-width:850px){
+ .navlinks{display:none}.nav{padding:0 5vw}.hero{min-height:850px}.hero-meta{grid-template-columns:1fr;gap:15px;margin-top:55px}
+ .tour-grid,.cards{grid-template-columns:1fr 1fr}.fruit-grid{grid-template-columns:repeat(2,1fr)}
+ .feature{grid-template-columns:1fr;gap:35px}.gallery{grid-template-columns:1fr 1fr}
+ .timeline{grid-template-columns:1fr}.step:not(:last-child){border-right:0}
+}
+@media(max-width:520px){
+ .hero h1{font-size:45px}.tour-grid,.cards{grid-template-columns:1fr}.tour:nth-child(2){transform:none}
+ .gallery{grid-template-columns:1fr}.gallery img:first-child{height:200px}
+}
+
+/* BloxBase information system */
+.knowledge{background:linear-gradient(180deg,#030606 0%,#06100f 100%)}
+.info-grid{max-width:1120px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.info-card{position:relative;min-height:245px;padding:27px;background:linear-gradient(145deg,rgba(15,30,29,.95),rgba(5,10,10,.92));border:1px solid rgba(255,255,255,.09);overflow:hidden;transition:.35s}
+.info-card:hover{transform:translateY(-5px);border-color:rgba(53,231,225,.35);box-shadow:0 18px 45px rgba(0,0,0,.35)}
+.info-card:before{content:"";position:absolute;width:130px;height:130px;right:-55px;top:-55px;border-radius:50%;background:rgba(53,231,225,.08);filter:blur(2px)}
+.info-card.big{grid-column:span 2;min-height:290px}
+.info-card.wide{grid-column:span 2;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.info-icon{font-size:26px;color:var(--cyan);margin-bottom:15px}
+.info-label{font-size:8px;letter-spacing:3px;color:var(--cyan);font-weight:700}
+.info-card h3{font-size:22px;margin:12px 0 10px;letter-spacing:-.5px}
+.info-card p{font-size:10px;color:#98a8a5;line-height:1.85;margin:0}
+.stat-row{display:flex;gap:8px;margin-top:25px}
+.stat-row span{flex:1;padding:13px;border:1px solid var(--line);font-size:8px;color:#84918f}
+.stat-row b{display:block;color:white;font-size:13px;margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.chips span,.badge{padding:8px 10px;border:1px solid rgba(53,231,225,.25);color:#9fe9e5;font-size:8px;letter-spacing:.7px}
+.mini-btn{margin-top:20px;border:0;background:none;color:var(--cyan);font-size:9px;letter-spacing:1px;cursor:pointer;padding:0}
+.badge{display:inline-block;margin-top:18px}
+.stat-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:20px 0}
+.stat-list span{font-size:9px;color:#c0cbc9;display:flex;align-items:center;gap:8px}
+.stat-list i{width:5px;height:5px;border-radius:50%;background:var(--cyan);display:inline-block}
+.route{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.route div{padding:16px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.route b{display:block;color:var(--cyan);font-size:9px;margin-bottom:7px}.route span{font-size:9px;color:#d8e0de}
+.islands{background:#030606}
+.sea-tabs{display:flex;justify-content:center;gap:8px;margin:30px 0}
+.sea-tab{background:transparent;border:1px solid var(--line);color:#a5b2b0;padding:11px 22px;font-size:9px;letter-spacing:1.5px;cursor:pointer}
+.sea-tab.active,.sea-tab:hover{background:var(--cyan);color:#00100f;border-color:var(--cyan)}
+.island-panel{max-width:1120px;margin:auto;display:none;grid-template-columns:repeat(3,1fr);gap:10px}
+.island-panel.active{display:grid}
+.route-card{padding:22px;background:linear-gradient(145deg,#0a1716,#050a0a);border:1px solid rgba(255,255,255,.08);transition:.3s}
+.route-card:hover{transform:translateY(-4px);border-color:rgba(53,231,225,.35)}
+.route-card>b{color:var(--cyan);font-size:9px;letter-spacing:2px}.route-card strong{display:block;font-size:16px;margin:12px 0 7px}.route-card span{display:block;font-size:10px;color:#dce5e3}.route-card small{display:block;color:#7f8e8b;font-size:8px;margin-top:8px}
+.tips{background:#050909}
+.tips-grid{max-width:1120px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tip{padding:25px;border-top:1px solid var(--line);background:rgba(255,255,255,.018)}
+.tip span{font-size:9px;color:var(--cyan);letter-spacing:2px}.tip h3{font-size:15px;line-height:1.3;margin:16px 0 10px}.tip p{font-size:9px;line-height:1.7;color:#82908e;margin:0}
+@media(max-width:850px){
+ .info-grid{grid-template-columns:1fr 1fr}.info-card.big,.info-card.wide{grid-column:span 2}.island-panel{grid-template-columns:1fr 1fr}.tips-grid{grid-template-columns:1fr 1fr}
+ .navlinks{overflow:hidden;max-width:65vw}
+}
+@media(max-width:520px){
+ .info-grid,.island-panel,.tips-grid{grid-template-columns:1fr}.info-card.big,.info-card.wide{grid-column:auto}.info-card.wide{display:block}.stat-row{flex-direction:column}
+}
+
+
+/* ===== BloxBase Ultimate layer ===== */
+.tour{cursor:pointer;position:relative;overflow:hidden}
+.tour img{transition:transform .65s ease,filter .4s ease}
+.tour:after{content:"ОТКРЫТЬ ПОЛНЫЙ РАЗБОР";position:absolute;left:22px;bottom:18px;color:#fff;font-size:7px;letter-spacing:1.8px;opacity:0;transition:.3s;z-index:4}
+.tour:hover img{transform:scale(1.07);filter:brightness(.68) saturate(1.18)}
+.tour:hover:after{opacity:.95}
+
+.ultimate-section{background:#030606}
+.ultimate-head{max-width:1120px;margin:0 auto 35px}
+.ultimate-head .kicker{margin-bottom:10px}
+.ultimate-head h2{margin-bottom:12px}
+.ultimate-head p{max-width:850px;color:#8f9d9a;line-height:1.9;font-size:10px}
+
+.topic-grid{max-width:1120px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.topic-card{position:relative;min-height:330px;overflow:hidden;border:1px solid rgba(255,255,255,.09);background:#07100f;cursor:pointer}
+.topic-card img{width:100%;height:100%;min-height:330px;object-fit:cover;display:block;opacity:.55;transition:.7s}
+.topic-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.9))}
+.topic-card:hover{border-color:rgba(53,231,225,.35)}
+.topic-card:hover img{transform:scale(1.06);opacity:.72}
+.topic-copy{position:absolute;z-index:2;left:25px;right:25px;bottom:24px}
+.topic-copy .num{color:var(--cyan);font-size:8px;letter-spacing:2px;font-weight:800}
+.topic-copy h3{font-size:25px;margin:8px 0}
+.topic-copy p{font-size:9px;line-height:1.75;color:#b2c0bd;margin:0;max-width:420px}
+.topic-copy .topic-btn{display:inline-block;margin-top:14px;color:var(--cyan);font-size:8px;letter-spacing:1.3px}
+
+.boss-zone{max-width:1120px;margin:auto}
+.boss-tools{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 15px}
+.boss-tool{background:transparent;color:#92a09d;border:1px solid var(--line);padding:10px 14px;font-size:8px;letter-spacing:1.2px;cursor:pointer}
+.boss-tool.active,.boss-tool:hover{background:var(--cyan);color:#00100f;border-color:var(--cyan)}
+.boss-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.boss-card{position:relative;min-height:225px;padding:20px;background:linear-gradient(145deg,#0a1716,#050909);border:1px solid rgba(255,255,255,.08);overflow:hidden;cursor:pointer;transition:.3s}
+.boss-card:hover{transform:translateY(-5px);border-color:rgba(53,231,225,.35);box-shadow:0 20px 55px rgba(0,0,0,.35)}
+.boss-card .boss-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.08;filter:saturate(.9);transition:.4s}
+.boss-card:hover .boss-bg{opacity:.17;transform:scale(1.05)}
+.boss-content{position:relative;z-index:2}
+.boss-top{display:flex;justify-content:space-between;align-items:center}
+.boss-sea{font-size:7px;letter-spacing:1.5px;color:var(--cyan)}
+.boss-lvl{font-size:8px;padding:5px 7px;background:rgba(255,255,255,.06);color:#c5d0cd}
+.boss-card h3{font-size:15px;margin:23px 0 8px}
+.boss-stars{font-size:12px;color:var(--cyan);letter-spacing:1px}
+.boss-card p{font-size:9px;color:#879693;line-height:1.7;margin:10px 0 15px}
+.boss-tags{display:flex;flex-wrap:wrap;gap:5px}
+.boss-tags span{border:1px solid rgba(255,255,255,.08);padding:5px 6px;font-size:7px;color:#aebbb8}
+
+.modal.big .modal-box{width:min(1100px,94vw);max-height:90vh;overflow:auto;padding:0;background:#06100f}
+.modal.big .modal-box::-webkit-scrollbar{width:8px}
+.modal.big .modal-box::-webkit-scrollbar-thumb{background:#18322f}
+.detail-hero{min-height:330px;position:relative;display:flex;align-items:end;background-size:cover;background-position:center}
+.detail-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.22)),linear-gradient(0deg,#06100f,transparent 60%)}
+.detail-hero-copy{position:relative;z-index:2;padding:42px;max-width:820px}
+.detail-hero-copy .eyebrow{color:var(--cyan);font-size:8px;letter-spacing:2px}
+.detail-hero-copy h3{font-size:clamp(32px,5vw,58px);margin:9px 0}
+.detail-hero-copy p{font-size:10px;color:#c0ceca;line-height:1.9;margin:0}
+.detail-body{padding:30px 42px 45px}
+.detail-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:22px}
+.detail-stat{padding:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}
+.detail-stat b{display:block;color:var(--cyan);font-size:18px;margin-bottom:5px}
+.detail-stat span{font-size:8px;color:#8c9997}
+.detail-columns{display:grid;grid-template-columns:1.25fr .75fr;gap:10px}
+.detail-panel{padding:22px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.07);margin-bottom:10px}
+.detail-panel h4{margin:0 0 10px;font-size:15px}
+.detail-panel p,.detail-panel li{font-size:9px;line-height:1.9;color:#9ca9a6}
+.detail-panel ul{padding-left:18px;margin:7px 0}
+.checklist{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.checklist div{padding:10px;background:rgba(53,231,225,.05);font-size:8px;color:#c2cecb}
+.checklist div:before{content:"✓";color:var(--cyan);margin-right:7px}
+
+.boss-detail-head{padding:35px 40px;border-bottom:1px solid rgba(255,255,255,.08);background:linear-gradient(120deg,rgba(53,231,225,.08),transparent)}
+.boss-detail-head .eyebrow{color:var(--cyan);font-size:8px;letter-spacing:2px}
+.boss-detail-head h3{font-size:34px;margin:8px 0}
+.boss-detail-head p{color:#9aa8a5;font-size:10px;line-height:1.9}
+.boss-detail-body{padding:30px 40px 40px}
+.detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.detail-box{padding:18px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07)}
+.detail-box b{display:block;color:var(--cyan);font-size:8px;letter-spacing:1.2px;margin-bottom:7px}
+.detail-box span,.detail-box p{color:#9eaaa7;font-size:9px;line-height:1.8;margin:0}
+
+.fruit-detail-top{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:center;padding:35px 40px;border-bottom:1px solid rgba(255,255,255,.08)}
+.fruit-detail-img{height:210px;display:grid;place-items:center;background:radial-gradient(circle,rgba(53,231,225,.12),transparent 68%)}
+.fruit-detail-img img{max-width:190px;max-height:190px;filter:drop-shadow(0 20px 25px rgba(0,0,0,.6))}
+.fruit-detail-top h3{font-size:35px;margin:8px 0}
+.fruit-detail-top p{font-size:10px;color:#9ba8a5;line-height:1.9}
+@media(max-width:900px){
+ .topic-grid{grid-template-columns:1fr 1fr}.boss-grid{grid-template-columns:1fr 1fr}
+ .detail-columns{grid-template-columns:1fr}.detail-stats{grid-template-columns:1fr 1fr}.detail-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+ .topic-grid,.boss-grid,.detail-grid{grid-template-columns:1fr}.detail-hero-copy{padding:28px}.detail-body,.boss-detail-body{padding:22px}
+ .fruit-detail-top{grid-template-columns:1fr;padding:25px}.checklist{grid-template-columns:1fr}
+}
+
+
+/* ===== Navigation / Back UX ===== */
+.modal-box .bb-back,
+.detail-modal .bb-back,
+#seaDetailModal .bb-back,
+#bossDetailModal .bb-back{
+  position:absolute;left:18px;top:16px;z-index:5;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 13px;border-radius:11px;
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  color:#dbe7e5;font-size:10px;font-weight:800;
+  letter-spacing:.7px;cursor:pointer;
+  transition:.2s ease;
+}
+.bb-back:hover{color:var(--cyan);border-color:rgba(53,231,225,.4);transform:translateX(-2px)}
+.modal-box.bb-with-back,.detail-modal.bb-with-back{padding-top:62px}
+
+/* prevent accidental horizontal overflow from animated panels */
+html,body{overflow-x:hidden}
+
+/* ===== Subtle site motion ===== */
+@keyframes bbFadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes bbGlow{0%,100%{opacity:.35;transform:scale(1)}50%{opacity:.7;transform:scale(1.05)}}
+.bb-reveal{opacity:0;transform:translateY(22px)}
+.bb-reveal.bb-visible{animation:bbFadeUp .65s cubic-bezier(.2,.75,.25,1) forwards}
+.hero:after{animation:bbGlow 7s ease-in-out infinite}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
+
+<style id="bloxbase-youth-ui">
+/* ===== BloxBase Youth Information UI ===== */
+:root{
+  --bb-accent:#22e6d0;
+  --bb-accent-2:#6c7cff;
+  --bb-panel:rgba(12,18,28,.82);
+  --bb-panel-2:rgba(18,26,39,.92);
+  --bb-line:rgba(255,255,255,.09);
+  --bb-muted:#8f9bad;
+}
+.section-title,.section h2,.section-title h2{
+  letter-spacing:-.045em;
+}
+.ultimate-card,.boss-card,.fruit-card,.info-card,.feature-card,.sea-card,.guide-card{
+  border:1px solid var(--bb-line)!important;
+  background:linear-gradient(145deg,rgba(18,27,40,.92),rgba(7,12,20,.88))!important;
+  box-shadow:0 14px 45px rgba(0,0,0,.25)!important;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease!important;
+  position:relative;
+  overflow:hidden;
+}
+.ultimate-card:before,.boss-card:before,.fruit-card:before,.info-card:before,.feature-card:before,.guide-card:before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 20%,rgba(34,230,208,.055),transparent 72%);
+  pointer-events:none;
+}
+.ultimate-card:hover,.boss-card:hover,.fruit-card:hover,.info-card:hover,.feature-card:hover,.guide-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(34,230,208,.38)!important;
+  box-shadow:0 20px 55px rgba(0,0,0,.38),0 0 0 1px rgba(34,230,208,.06)!important;
+}
+.bb-label{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(34,230,208,.2);
+  background:rgba(34,230,208,.07);
+  color:var(--bb-accent);font-size:11px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.1em;
+}
+.bb-stat-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.bb-stat{
+  padding:10px 12px;border-radius:13px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.07);
+  min-width:105px;
+}
+.bb-stat b{display:block;font-size:14px;color:#fff}
+.bb-stat span{display:block;margin-top:3px;font-size:10px;color:var(--bb-muted);text-transform:uppercase;letter-spacing:.08em}
+.bb-divider{
+  height:1px;background:linear-gradient(90deg,rgba(34,230,208,.35),rgba(255,255,255,.04),transparent);
+  margin:18px 0;
+}
+.bb-kicker{
+  color:var(--bb-accent);font-size:11px;font-weight:900;
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;
+}
+.bb-tip{
+  border-left:3px solid var(--bb-accent);
+  background:linear-gradient(90deg,rgba(34,230,208,.09),rgba(34,230,208,.015));
+  border-radius:0 14px 14px 0;padding:13px 15px;margin-top:15px;
+  color:#d9e4ea;
+}
+.bb-tip strong{color:#fff}
+.boss-card .difficulty,.boss-card .boss-meta,.fruit-card .fruit-meta{
+  border-radius:10px;
+}
+.boss-card .difficulty{
+  background:rgba(108,124,255,.11)!important;
+  border:1px solid rgba(108,124,255,.18)!important;
+  padding:7px 9px!important;
+}
+.filter-btn,.tab-btn,.sea-tab,.boss-filter{
+  border:1px solid rgba(255,255,255,.08)!important;
+  background:rgba(255,255,255,.035)!important;
+  border-radius:12px!important;
+  transition:.2s ease!important;
+}
+.filter-btn:hover,.tab-btn:hover,.sea-tab:hover,.boss-filter:hover{
+  border-color:rgba(34,230,208,.35)!important;
+  color:var(--bb-accent)!important;
+  transform:translateY(-1px);
+}
+.filter-btn.active,.tab-btn.active,.sea-tab.active,.boss-filter.active{
+  background:rgba(34,230,208,.1)!important;
+  border-color:rgba(34,230,208,.45)!important;
+  color:#fff!important;
+  box-shadow:0 0 20px rgba(34,230,208,.08);
+}
+.modal-content,.modal-box,.detail-modal,.sea-detail,.boss-detail{
+  background:linear-gradient(145deg,rgba(14,21,32,.98),rgba(6,10,17,.98))!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:24px!important;
+  box-shadow:0 30px 100px rgba(0,0,0,.62),0 0 45px rgba(34,230,208,.06)!important;
+}
+.modal-content h2,.modal-content h3,.modal-box h2,.modal-box h3{
+  letter-spacing:-.035em;
+}
+.modal-content p,.modal-box p{
+  color:#b7c1cf;
+  line-height:1.75;
+}
+.modal-content ul,.modal-box ul{color:#c4ced9}
+.progress-bar,.progress{
+  background:rgba(255,255,255,.07)!important;
+  border:1px solid rgba(255,255,255,.05);
+  border-radius:999px!important;
+  overflow:hidden;
+}
+.progress-bar>*,.progress>*{
+  border-radius:999px;
+}
+.section-intro,.lead,.description{
+  color:#9da9b8!important;
+  line-height:1.75!important;
+}
+.card-title,.ultimate-card h3,.boss-card h3,.fruit-card h3{
+  letter-spacing:-.025em;
+}
+.tag,.badge,.pill{
+  border-radius:999px!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  background:rgba(255,255,255,.045)!important;
+}
+@media(max-width:700px){
+ .bb-stat{flex:1;min-width:90px}
+ .modal-content,.modal-box,.detail-modal,.sea-detail,.boss-detail{border-radius:18px!important}
+}
+</style>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style id="bloxbase-motion-ui">
+/* ===== Final typography + motion pass ===== */
+:root{--display:"Space Grotesk",sans-serif;--body:"Inter",sans-serif}
+body{font-family:var(--body),Arial,sans-serif}
+.hero h1,.section h2,.feature h2,.ultimate-head h2,.modal-box h3,.boss-detail-head h3,.fruit-detail-top h3,.info-card h3,.card-copy h3,.tour-copy b{font-family:var(--display),var(--body),sans-serif}
+.hero h1{font-weight:700;letter-spacing:-.055em}
+.section h2,.ultimate-head h2{font-weight:650;letter-spacing:-.045em}
+.feature h2{font-weight:700;letter-spacing:-.055em}
+.hero p,.section-head p,.feature p,.info-card p,.tip p,.route-card span,.route-card small,.card-copy p,.modal-box p{font-family:var(--body),sans-serif}
+
+/* reveal-on-scroll */
+.bb-reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.75,.25,1),transform .7s cubic-bezier(.2,.75,.25,1)}
+.bb-reveal.bb-visible{opacity:1;transform:none}
+.bb-reveal:nth-child(2){transition-delay:.06s}.bb-reveal:nth-child(3){transition-delay:.12s}.bb-reveal:nth-child(4){transition-delay:.18s}.bb-reveal:nth-child(5){transition-delay:.24s}.bb-reveal:nth-child(6){transition-delay:.30s}
+
+/* cinematic ambient glow */
+body:before{content:"";position:fixed;z-index:-1;width:42vw;height:42vw;left:-18vw;top:45vh;border-radius:50%;background:rgba(34,230,208,.055);filter:blur(90px);pointer-events:none;animation:bbDrift 12s ease-in-out infinite alternate}
+body:after{content:"";position:fixed;z-index:-1;width:34vw;height:34vw;right:-14vw;top:12vh;border-radius:50%;background:rgba(108,124,255,.045);filter:blur(90px);pointer-events:none;animation:bbDrift2 15s ease-in-out infinite alternate}
+@keyframes bbDrift{from{transform:translate3d(0,0,0)}to{transform:translate3d(7vw,-4vh,0)}}
+@keyframes bbDrift2{from{transform:translate3d(0,0,0)}to{transform:translate3d(-5vw,6vh,0)}}
+
+/* nicer cards */
+.card,.tour,.topic-card,.boss-card,.fruit-card,.ultimate-card,.info-card,.guide-card,.route-card,.tip{will-change:transform}
+.card:after,.tour:after{transition:opacity .35s ease}
+.card:hover:after,.tour:hover:after{opacity:.88}
+.topic-card img,.boss-card img,.fruit-card img{transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .4s ease}
+.topic-card:hover img,.boss-card:hover img{transform:scale(1.045)}
+
+/* guide gallery = video cards */
+.gallery .g{cursor:pointer;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:#07100f}
+.gallery .g:before{content:"▶  СМОТРЕТЬ ГАЙД";position:absolute;z-index:4;left:14px;bottom:14px;padding:8px 10px;border:1px solid rgba(53,231,225,.42);background:rgba(3,8,8,.72);backdrop-filter:blur(8px);color:#dffffc;font-size:8px;letter-spacing:1.2px;opacity:.86;transition:.25s}
+.gallery .g:hover:before{opacity:1;transform:translateY(-2px);border-color:var(--cyan);box-shadow:0 8px 25px rgba(53,231,225,.13)}
+.gallery .g img{transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .4s ease,opacity .3s}
+.gallery .g:hover img{transform:scale(1.055);filter:saturate(1.05) brightness(.9);opacity:1}
+
+/* video modal */
+.video-modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.86);backdrop-filter:blur(16px);display:none;place-items:center;padding:20px}
+.video-modal.open{display:grid;animation:bbModalIn .25s ease}
+.video-shell{width:min(980px,96vw);background:linear-gradient(145deg,#0c1717,#050909);border:1px solid rgba(53,231,225,.28);border-radius:22px;box-shadow:0 35px 110px rgba(0,0,0,.7),0 0 55px rgba(53,231,225,.07);overflow:hidden;animation:bbVideoIn .4s cubic-bezier(.2,.8,.2,1)}
+.video-top{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid rgba(255,255,255,.08)}
+.video-top .label{font:700 9px var(--body);letter-spacing:2px;color:var(--cyan);text-transform:uppercase}
+.video-top h3{font:600 15px var(--display);margin:5px 0 0}
+.video-close{border:0;background:rgba(255,255,255,.05);color:white;width:36px;height:36px;border-radius:50%;font-size:20px;cursor:pointer;transition:.2s}
+.video-close:hover{background:rgba(53,231,225,.12);color:var(--cyan);transform:rotate(90deg)}
+.video-frame{position:relative;aspect-ratio:16/9;background:#000}
+.video-frame iframe{width:100%;height:100%;border:0;display:block}
+.video-bottom{padding:12px 18px;color:#7f908d;font-size:9px;display:flex;justify-content:space-between;gap:15px}
+.video-bottom a{color:var(--cyan)}
+@keyframes bbModalIn{from{opacity:0}to{opacity:1}}
+@keyframes bbVideoIn{from{opacity:0;transform:translateY(18px) scale(.975)}to{opacity:1;transform:none}}
+
+/* animated section separators */
+.dark-divider,.bb-divider{position:relative;overflow:hidden}
+.dark-divider:after,.bb-divider:after{content:"";position:absolute;top:0;left:-20%;width:20%;height:100%;background:linear-gradient(90deg,transparent,rgba(53,231,225,.7),transparent);animation:bbScan 5s linear infinite}
+@keyframes bbScan{to{left:120%}}
+
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.bb-reveal{opacity:1;transform:none}}
+</style>
+
+</head>
+<body>
+<header class="nav" id="nav">
+  <a class="logo" href="#home">BLOXBASE</a>
+  <nav class="navlinks">
+    <a href="#home">Главная</a><a href="#seas">Моря</a><a href="#fruits">Фрукты</a><a href="#guides">Гайды</a><a href="#knowledge">База знаний</a><a href="#islands">Острова</a><a href="#progress">Прогресс</a><a href="#about">О сайте</a>
+  </nav>
+  <button class="search-btn" onclick="openSearch()" aria-label="Search">⌕</button>
+</header>
+
+<main>
+<div class="bb-youth-legend" style="display:flex;flex-wrap:wrap;gap:9px;margin:0 auto 24px;max-width:1180px;padding:0 18px">
+  <span class="bb-label">⚡ Главное</span>
+  <span class="bb-label" style="color:#aab4ff;border-color:rgba(108,124,255,.22);background:rgba(108,124,255,.07)">🎯 Практика</span>
+  <span class="bb-label" style="color:#ffd36a;border-color:rgba(255,211,106,.2);background:rgba(255,211,106,.06)">★ Сложность</span>
+  <span class="bb-label" style="color:#ff8fa3;border-color:rgba(255,143,163,.2);background:rgba(255,143,163,.06)">☠ Босс</span>
+</div>
+
+<section class="hero" id="home">
+ <div class="hero-inner">
+  <div class="eyebrow">BLOX FRUITS • ВИЗУАЛЬНЫЙ ГАЙД</div>
+  <h1>ИССЛЕДУЙ <span>МИР</span><br>BLOX FRUITS</h1>
+  <p>Большой визуальный гайд по миру Blox Fruits: моря, острова, фрукты, боссы, рейды, статы и билды. Открывай нужный раздел и быстро находи информацию прямо во время игры.</p>
+  <div class="hero-actions">
+   <a class="btn" href="#seas">Исследовать моря</a>
+   <a class="btn ghost" href="#fruits">Найти фрукт</a>
+  </div>
+  <div class="hero-meta">
+   <div class="meta"><strong>01</strong><small>Три моря и огромный маршрут развития персонажа.</small></div>
+   <div class="meta"><strong>02</strong><small>Фрукты, боевые стили, боссы и важные механики.</small></div>
+   <div class="meta"><strong>03</strong><small>Интерактивный поиск помогает быстро перейти к нужному объекту.</small></div>
+  </div>
+ </div>
+ <div class="side-dots"><span>01</span><span>02</span><span class="active">03</span><span>04</span><span>05</span></div>
+</section>
+
+<section class="section" id="seas">
+ <div class="section-head"><div class="kicker">Выбери свой маршрут</div><h2>ТРИ МОРЯ</h2><p>Каждое море меняет темп игры, набор механик, состав врагов и цели прокачки. Нажми на изображение — откроется полный разбор.</p></div>
+ <div class="tour-grid">
+  <article class="tour" onclick="openSeaDetail('sea1')"><img src="https://wikiassets.net/bloxfruits-3bec24/images/91ec0031165a3a12d2aefc215549384b.webp" loading="lazy"><div class="tour-copy"><b>МОРЕ 01</b><span>УРОВНИ 1 — 700</span></div></article>
+  <article class="tour" onclick="openSeaDetail('sea2')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/abb2c14aea10b80e7fb819b6dafc396f.webp" loading="lazy"><div class="tour-copy"><b>МОРЕ 02</b><span>УРОВНИ 700 — 1500</span></div></article>
+  <article class="tour" onclick="openSeaDetail('sea3')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/3215efd693d8f904b95003b51725e94e.webp" loading="lazy"><div class="tour-copy"><b>МОРЕ 03</b><span>УРОВНИ 1500 — ЭНДГЕЙМ</span></div></article>
+  <article class="tour" onclick="openSeaDetail('map')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/f8ae965b01a02183f24f39ccf06c5ba5.webp" loading="lazy"><div class="tour-copy"><b>КАРТА</b><span>ОСТРОВА • БОССЫ • КВЕСТЫ</span></div></article>
+ </div>
+</section>
+
+<div class="dark-divider"></div>
+
+
+<section class="section ultimate-section" id="ultimate">
+ <div class="ultimate-head">
+  <div class="kicker">Новая версия BloxBase</div>
+  <h2>НЕ ПРОСТО ГАЙД — ЦЕЛАЯ БАЗА</h2>
+  <p>Мы смешали кинематографичный стиль прошлого варианта с энциклопедической структурой расширенной версии. Теперь изображения соответствуют конкретным темам: карта Первого моря — для Первого моря, карта Второго — для Второго, карта Третьего — для Третьего, Raid Room — для рейдов, а фрукты — для каталога фруктов.</p>
+ </div>
+ <div class="topic-grid">
+  <article class="topic-card" onclick="openSeaDetail('sea1')"><img src="https://wikiassets.net/bloxfruits-3bec24/images/91ec0031165a3a12d2aefc215549384b.webp" alt="Карта Первого моря" loading="lazy"><div class="topic-copy"><div class="num">01 / FIRST SEA</div><h3>ПЕРВОЕ МОРЕ</h3><p>Уровни 1–700, стартовые острова, первые боссы, квесты, базовые механики и маршрут до перехода.</p><span class="topic-btn">ОТКРЫТЬ ПОЛНЫЙ РАЗБОР →</span></div></article>
+  <article class="topic-card" onclick="openSeaDetail('sea2')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/abb2c14aea10b80e7fb819b6dafc396f.webp" alt="Карта Второго моря" loading="lazy"><div class="topic-copy"><div class="num">02 / SECOND SEA</div><h3>ВТОРОЕ МОРЕ</h3><p>Уровни 700–1500, Fragments, рейды, пробуждения, новые NPC и более сложные зоны.</p><span class="topic-btn">ОТКРЫТЬ ПОЛНЫЙ РАЗБОР →</span></div></article>
+  <article class="topic-card" onclick="openSeaDetail('sea3')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/3215efd693d8f904b95003b51725e94e.webp" alt="Карта Третьего моря" loading="lazy"><div class="topic-copy"><div class="num">03 / THIRD SEA</div><h3>ТРЕТЬЕ МОРЕ</h3><p>1500+, эндгейм, PvP, Race Awakenings, Sea Danger Levels и самые дальние острова.</p><span class="topic-btn">ОТКРЫТЬ ПОЛНЫЙ РАЗБОР →</span></div></article>
+  <article class="topic-card" onclick="openRaidDetail()"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/f8ae965b01a02183f24f39ccf06c5ba5.webp" alt="Raid Room Blox Fruits" loading="lazy"><div class="topic-copy"><div class="num">04 / RAIDS</div><h3>РЕЙДЫ</h3><p>Пять островов, Raid Boss, Fragments и пробуждение способностей фруктов. Участие 700+, хостинг 1100+.</p><span class="topic-btn">ОТКРЫТЬ МЕХАНИКУ →</span></div></article>
+  <article class="topic-card" onclick="document.getElementById('bosses').scrollIntoView({behavior:'smooth'})"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/aabe113cd3636dd5d7fab70b1f91e01d.webp" alt="Dragon Blox Fruits" loading="lazy"><div class="topic-copy"><div class="num">05 / BOSSES</div><h3>БОССЫ</h3><p>Рейтинг сложности, уровни, локации, тип наград и отдельный подробный экран каждого босса.</p><span class="topic-btn">СМОТРЕТЬ РЕЙТИНГ →</span></div></article>
+  <article class="topic-card" onclick="document.getElementById('fruits').scrollIntoView({behavior:'smooth'})"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/d41ac287d9ae2db8eb069c786d42b4aa.webp" alt="Buddha Blox Fruits" loading="lazy"><div class="topic-copy"><div class="num">06 / FRUITS</div><h3>ФРУКТЫ</h3><p>Каталог, фильтры и расширенная карточка: роль, PvE, PvP, мобильность, фарм и место в билде.</p><span class="topic-btn">ОТКРЫТЬ КАТАЛОГ →</span></div></article>
+ </div>
+</section>
+
+<section class="section ultimate-section" id="bosses">
+ <div class="ultimate-head">
+  <div class="kicker">Boss database</div>
+  <h2>РЕЙТИНГ БОССОВ</h2>
+  <p>Сложность — ориентир сообщества: она учитывает урон, контроль и запас здоровья при сопоставимом уровне персонажа. Нажми на любую карточку, чтобы увидеть расширенный разбор.</p>
+ </div>
+ <div class="boss-zone">
+  <div class="boss-tools">
+   <button class="boss-tool active" data-filter="all">ВСЕ</button>
+   <button class="boss-tool" data-filter="1">МОРЕ I</button>
+   <button class="boss-tool" data-filter="2">МОРЕ II</button>
+   <button class="boss-tool" data-filter="3">МОРЕ III</button>
+   <button class="boss-tool" data-filter="raid">СПЕЦИАЛЬНЫЕ</button>
+  </div>
+  <div class="boss-grid" id="bossGrid"></div>
+ </div>
+</section>
+
+<section class="feature" id="guides">
+ <div class="feature-copy">
+  <div class="kicker">Изучи игру</div>
+  <h2>ИГРАЙ<br>УМНЕЕ.<br>ИДИ<br>ДАЛЬШЕ.</h2>
+  <p>BloxBase превращает огромную игру в понятный маршрут: сначала цель, затем море, остров, квест, фрукт, билд, босс или система. Ты можешь начать с карты, открыть конкретное море, сравнить босса по сложности или найти фрукт и сразу перейти к его роли в PvE и PvP. Визуальные блоки нужны не ради украшения — они помогают быстрее понять, что именно находится перед тобой.</p>
+  <button class="video-btn" onclick="openInfo('Как пользоваться BloxBase','Выбирай море, открывай нужный раздел и используй поиск. Карточки ниже можно фильтровать по типу фрукта.')"><span class="play">▶</span> КАК ЭТО РАБОТАЕТ</button>
+ </div>
+ <div class="gallery">
+  <div class="g" onclick="openGuideVideo(0)"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/abb2c14aea10b80e7fb819b6dafc396f.webp" loading="lazy"></div>
+  <div class="g" onclick="openGuideVideo(1)"><img src="https://wikiassets.net/bloxfruits-3bec24/images/e94ba8932558d77ac580974aa9b4df50.webp" loading="lazy"></div>
+  <div class="g" onclick="openGuideVideo(2)"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/d41ac287d9ae2db8eb069c786d42b4aa.webp" loading="lazy"></div>
+  <div class="g" onclick="openGuideVideo(0)"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/b93e5bf13671471fc4bbb1b4df74d8ac.webp" loading="lazy"></div>
+  <div class="g" onclick="openGuideVideo(1)"><img src="https://wikiassets.net/bloxfruits-3bec24/images/f22c1057d4d61556ea8bb319ef4e2df6.webp" loading="lazy"></div>
+ </div>
+</section>
+
+<section class="section explore">
+ <div class="section-head"><div class="kicker">Начни здесь</div><h2>ЧТО ТЫ ХОЧЕШЬ ИЗУЧИТЬ?</h2><p>Открывай разделы как визуальный маршрут, а не как обычную wiki.</p></div>
+ <div class="cards">
+  <article class="card" onclick="openInfo('Фрукты','Найди фрукт, посмотри его тип и открой подробный гайд.')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/f5de72c6a5c5e6c40e9f8a44bcfd2afb.webp" loading="lazy"><div class="card-copy"><div class="num">01 / FRUITS</div><h3>FRUITS</h3><p>Типы, роли, способности и быстрый поиск.</p></div></article>
+  <article class="card" onclick="openInfo('Боссы','Собирай маршрут фарма боссов и отслеживай нужные награды.')"><img src="https://wikiassets.net/bloxfruits-3bec24/images/e94ba8932558d77ac580974aa9b4df50.webp" loading="lazy"><div class="card-copy"><div class="num">02 / BOSSES</div><h3>BOSSES</h3><p>Локации, награды и прогресс.</p></div></article>
+  <article class="card" onclick="openInfo('Билды','Собирай билд под гринд, PvP, Sea Events или босса.')"><img src="https://wikiassets.net/bloxfruits-3-e6227a/images/b93e5bf13671471fc4bbb1b4df74d8ac.webp" loading="lazy"><div class="card-copy"><div class="num">03 / BUILDS</div><h3>BUILDS</h3><p>Fruit + Fighting Style + Sword + Stats.</p></div></article>
+ </div>
+</section>
+
+<section class="section fruits" id="fruits">
+ <div class="section-head"><div class="kicker">БАЗА ФРУКТОВ</div><h2>НАЙДИ СВОЙ ФРУКТ</h2><p>Расширенный каталог с поиском, фильтрами и подробными карточками. Открывай любой фрукт, чтобы посмотреть его роль и место в билде.</p></div>
+ <div class="search-panel"><input id="fruitSearch" placeholder="Поиск фрукта..." oninput="renderФрукты()"><span>⌕</span></div>
+ <div class="toolbar">
+   <button class="filter active" data-type="all">ВСЕ</button>
+   <button class="filter" data-type="Natural">НАТУРАЛЬНЫЕ</button>
+   <button class="filter" data-type="Elemental">ЭЛЕМЕНТАЛЬНЫЕ</button>
+   <button class="filter" data-type="Beast">ЗВЕРИНЫЕ</button>
+ </div>
+ <div class="fruit-grid" id="fruitGrid"></div>
+</section>
+
+
+<section class="section knowledge" id="knowledge">
+  <div class="section-head">
+    <div class="kicker">База знаний</div>
+    <h2>ВСЁ, ЧТО НУЖНО ДЛЯ ПУТИ</h2>
+    <p>Информация разбита на понятные блоки, чтобы сайт был похож на визуальный гайд, а не на сухую wiki.</p>
+  </div>
+
+  <div class="info-grid">
+    <article class="info-card big">
+      <div class="info-icon">⚔</div>
+      <div>
+        <div class="info-label">СИСТЕМА ПРОГРЕССА</div>
+        <h3>От первого острова до эндгейма</h3>
+        <p>BloxBase показывает, куда двигаться дальше: уровень → остров → квест → босс → следующий этап. Три моря образуют основную структуру прогрессии.</p>
+      </div>
+      <div class="stat-row">
+        <span><b>1–700</b> Первое море</span>
+        <span><b>700–1500</b> Второе море</span>
+        <span><b>1500+</b> Третье море</span>
+      </div>
+    </article>
+
+    <article class="info-card">
+      <div class="info-label">ФРУКТЫ</div>
+      <h3>Выбери силу</h3>
+      <p>Фрукты дают уникальные способности. В базе можно искать фрукт, смотреть его тип и использовать его как отправную точку для билда.</p>
+      <div class="chips"><span>Elemental</span><span>Natural</span><span>Beast</span></div>
+    </article>
+
+    <article class="info-card">
+      <div class="info-label">БОССЫ</div>
+      <h3>Фарм и награды</h3>
+      <p>Боссы сильнее обычных NPC и могут давать EXP, Money, материалы, оружие и аксессуары. Некоторые связаны с прогрессией, а специальные и рейдовые боссы имеют отдельные условия появления.</p>
+      <button class="mini-btn" onclick="openInfo('Боссы','Боссы дают больше EXP и Money и могут иметь специальные дропы. В отдельной версии BloxBase сюда можно добавить таймер респавна, точную локацию и таблицу дропа.')">Открыть раздел →</button>
+    </article>
+
+    <article class="info-card">
+      <div class="info-label">RAIDS</div>
+      <h3>Пробуждение фруктов</h3>
+      <p>Рейды доступны во Втором и Третьем море. В каждом рейде пять островов, сложность постепенно растёт, а финальный остров заканчивается Raid Boss. Fragments используются для пробуждения способностей.</p>
+      <div class="badge">700+ участие · 1100+ хост</div>
+    </article>
+
+    <article class="info-card">
+      <div class="info-label">СТАТЫ</div>
+      <h3>Собери билд</h3>
+      <div class="stat-list">
+        <span><i></i>Melee</span><span><i></i>Defense</span><span><i></i>Blox Fruit</span>
+        <span><i></i>Sword</span><span><i></i>Gun</span>
+      </div>
+      <p>Для каждой сборки можно отдельно показывать приоритет характеристик, фрукт, стиль боя, оружие и аксессуар.</p>
+    </article>
+
+    <article class="info-card wide">
+      <div>
+        <div class="info-label">МАРШРУТ НОВИЧКА</div>
+        <h3>Не знаешь, что делать дальше?</h3>
+        <p>Используй эту последовательность как быстрый чек-лист: взять подходящий квест → фармить NPC своего диапазона → улучшить билд → перейти на следующий остров → выполнить требования следующего моря.</p>
+      </div>
+      <div class="route">
+        <div><b>01</b><span>Выбери команду</span></div>
+        <div><b>02</b><span>Возьми квест</span></div>
+        <div><b>03</b><span>Прокачайся</span></div>
+        <div><b>04</b><span>Открой море</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section islands" id="islands">
+  <div class="section-head">
+    <div class="kicker">Маршрут по островам</div>
+    <h2>КУДА ПЛЫТЬ ДАЛЬШЕ?</h2>
+    <p>Выбери море и получи компактную дорожную карту.</p>
+  </div>
+  <div class="sea-tabs">
+    <button class="sea-tab active" onclick="showSea('sea1',this)">МОРЕ I</button>
+    <button class="sea-tab" onclick="showSea('sea2',this)">МОРЕ II</button>
+    <button class="sea-tab" onclick="showSea('sea3',this)">МОРЕ III</button>
+  </div>
+  <div id="sea1" class="island-panel active">
+    <div class="route-card"><b>01</b><strong>Starter Island</strong><span>Уровни 1–10</span><small>Стартовая зона</small></div>
+    <div class="route-card"><b>02</b><strong>Jungle</strong><span>Уровни 10–30</span><small>Gorilla King</small></div>
+    <div class="route-card"><b>03</b><strong>Pirate Village</strong><span>Уровни 30–60</span><small>Bobby the Clown</small></div>
+    <div class="route-card"><b>04</b><strong>Desert</strong><span>Уровни 60–90</span><small>Следующая точка маршрута</small></div>
+    <div class="route-card"><b>05</b><strong>Frozen Village</strong><span>Уровни 90–120</span><small>Ice Admiral</small></div>
+    <div class="route-card"><b>06</b><strong>Fountain City</strong><span>До 700</span><small>Финиш Первого моря</small></div>
+  </div>
+  <div id="sea2" class="island-panel">
+    <div class="route-card"><b>01</b><strong>Kingdom of Rose</strong><span>700–850</span><small>Café • Mansion</small></div>
+    <div class="route-card"><b>02</b><strong>Green Zone</strong><span>850–950</span><small>Основной гринд</small></div>
+    <div class="route-card"><b>03</b><strong>Graveyard</strong><span>950–1000</span><small>Поздний гринд</small></div>
+    <div class="route-card"><b>04</b><strong>Hot and Cold</strong><span>1100–1250</span><small>Raid Room</small></div>
+    <div class="route-card"><b>05</b><strong>Cursed Ship</strong><span>1250–1350</span><small>Гринд и материалы</small></div>
+    <div class="route-card"><b>06</b><strong>Forgotten Island</strong><span>1425–1500</span><small>Tide Keeper</small></div>
+  </div>
+  <div id="sea3" class="island-panel">
+    <div class="route-card"><b>01</b><strong>Port Town</strong><span>1500–1575</span><small>Вход в Третье море</small></div>
+    <div class="route-card"><b>02</b><strong>Hydra Island</strong><span>1575–1700</span><small>Новый маршрут</small></div>
+    <div class="route-card"><b>03</b><strong>Great Tree</strong><span>1700–1775</span><small>Продолжение гринда</small></div>
+    <div class="route-card"><b>04</b><strong>Floating Turtle</strong><span>1800–1975</span><small>Длинный этап</small></div>
+    <div class="route-card"><b>05</b><strong>Haunted Castle</strong><span>Высокие уровни</span><small>Эндгейм-зона</small></div>
+    <div class="route-card"><b>06</b><strong>Tiki Outpost</strong><span>Эндгейм</span><small>Поздний контент</small></div>
+  </div>
+</section>
+
+<section class="section tips">
+  <div class="section-head">
+    <div class="kicker">Quick guide</div>
+    <h2>ПОЛЕЗНО ЗНАТЬ</h2>
+  </div>
+  <div class="tips-grid">
+    <div class="tip"><span>01</span><h3>Не застревай на старом острове</h3><p>Как только квесты следующей зоны становятся доступными, переходи дальше — это ускоряет прокачку.</p></div>
+    <div class="tip"><span>02</span><h3>Смотри на весь билд</h3><p>Фрукт — не единственная часть персонажа. Учитывай Melee, Defense, Sword, Gun и стиль игры.</p></div>
+    <div class="tip"><span>03</span><h3>Изучай механику заранее</h3><p>Перед новым морем проверь требования, NPC, боссов и системы, которые появятся после перехода.</p></div>
+    <div class="tip"><span>04</span><h3>Используй BloxBase как карту</h3><p>Не нужно читать всё подряд: выбирай нужный раздел и переходи к конкретному объекту.</p></div>
+  </div>
+</section>
+
+<section class="progress" id="progress">
+ <div class="section-head"><div class="kicker">Прогрессion</div><h2>ТВОЙ ПУТЬ</h2><p>Логика сайта построена вокруг движения игрока от начала к эндгейму.</p></div>
+ <div class="timeline">
+  <div class="step"><div class="n">01 / START</div><h3>FIRST SEA</h3><p>Освой базовые механики, квесты, первые фрукты и путешествия между островами.</p></div>
+  <div class="step"><div class="n">02 / GROW</div><h3>SECOND SEA</h3><p>Углубляй билд, открывай новые системы, рейды, предметы и более сложных противников.</p></div>
+  <div class="step"><div class="n">03 / MASTER</div><h3>THIRD SEA</h3><p>Эндгейм-контент, PvP, сложные боссы, редкие предметы и максимальная прокачка.</p></div>
+ </div>
+</section>
+</main>
+
+<footer class="footer" id="about">
+ <div class="logo">BLOXBASE</div>
+ <p>Fan-made visual guide concept for Blox Фрукты. Blox Фрукты is a Roblox experience by Gamer Robot Inc. This website is an independent fan project.</p>
+ <div class="social"><span>◎</span><span>◈</span><span>✈</span><span>𝕏</span></div>
+<div style="margin-top:18px;font-size:8px;color:#53605e">Информация на сайте структурирована как фанатский справочник и может меняться вместе с обновлениями игры. Для актуализации использованы материалы Blox Fruits Wiki; First Sea был переработан в Update 30.</div></footer>
+
+
+<div class="modal big" id="seaDetailModal" onclick="if(event.target===this)closeSeaDetail()">
+ <div class="modal-box" id="seaDetailBox"></div>
+</div>
+<div class="modal big" id="bossDetailModal" onclick="if(event.target===this)closeBossDetail()">
+ <div class="modal-box" id="bossDetailBox"></div>
+</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+ <div class="modal-box"><button class="close" onclick="closeModal()">×</button><h3 id="modalTitle"></h3><p id="modalText"></p></div>
+</div>
+
+
+<script>
+const fruits=[
+ {n:'Rocket',t:'Natural',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/f5de72c6a5c5e6c40e9f8a44bcfd2afb.webp',role:'Простой старт',desc:'Подходит для знакомства с фруктовой системой и базовой боевой логикой.'},
+ {n:'Spin',t:'Natural',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/d7f7e49f94464d69639d0311b62aa05f.webp',role:'Ранний PvE',desc:'Лёгкий вариант для первых этапов и изучения движения.'},
+ {n:'Flame',t:'Elemental',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/576c20593b94cd5682547d56df6da627.webp',role:'Урон и PvE',desc:'Удобный элементальный фрукт для дальних атак и групп NPC.'},
+ {n:'Ice',t:'Elemental',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/9b4060fec64ef74cd15a47adc2671bd0.webp',role:'Контроль',desc:'Полезен для контроля противника и построения комбинаций.'},
+ {n:'Light',t:'Elemental',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/59e4a22446b065022a543ecb0a905ec2.webp',role:'Мобильность',desc:'Сильная сторона — быстрое перемещение и комфортный фарм.'},
+ {n:'Buddha',t:'Beast',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/d41ac287d9ae2db8eb069c786d42b4aa.webp',role:'Фарм и рейды',desc:'Популярное направление для PvE благодаря удобству ближнего боя и живучести.'},
+ {n:'Portal',t:'Natural',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/32b89dc1f8b78d4629becd6ea827f06a.webp',role:'Мобильность',desc:'Фокусируется на перемещении и контроле дистанции.'},
+ {n:'Tiger',t:'Beast',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/29724877a1d55e12c81f552e5d1427b9.webp',role:'Агрессия',desc:'Вариант для более агрессивного стиля и трансформации.'},
+ {n:'Yeti',t:'Beast',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/05b50d845a1a088e0703005df9c38a59.webp',role:'Ближний бой',desc:'Подходит для игроков, которые любят давление на короткой дистанции.'},
+ {n:'Dragon',t:'Beast',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/aabe113cd3636dd5d7fab70b1f91e01d.webp',role:'Эндгейм',desc:'Высокопотенциальное направление для продвинутых PvE/PvP билдов.'},
+ {n:'Shadow',t:'Natural',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/bc38b64f065b878772fa9432eb2894ce.webp',role:'Давление',desc:'Агрессивный набор с упором на постоянное давление.'},
+ {n:'Magnet',t:'Natural',i:'https://wikiassets.net/bloxfruits-3-e6227a/images/32b89dc1f8b78d4629becd6ea827f06a.webp',role:'Контроль',desc:'Карточка добавлена для текущего каталога Update 30; ассет можно заменить на точный официальный визуал Magnet.'}
+];
+let activeType='all';
+
+function renderФрукты(){
+ const q=(document.getElementById('fruitSearch').value||'').toLowerCase();
+ const list=fruits.filter(f=>(activeType==='all'||f.t===activeType)&&f.n.toLowerCase().includes(q));
+ document.getElementById('fruitGrid').innerHTML=list.map((f)=>`
+  <article class="fruit" onclick="openFruitDetail(${fruits.indexOf(f)})">
+   <img src="${f.i}" alt="${f.n}" loading="lazy">
+   <div><b>${f.n}</b><small>${f.t.toUpperCase()} • ${f.role}</small></div>
+  </article>`).join('');
+}
+document.querySelectorAll('.filter').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));
+ b.classList.add('active'); activeType=b.dataset.type; renderФрукты();
+});
+
+const bosses=[
+ {n:'Gorilla King',sea:1,lvl:25,d:2,loc:'Jungle',reward:'EXP • Money • quest',desc:'Ранний босс для знакомства с боевой системой и позиционированием.'},
+ {n:'The Saw',sea:1,lvl:100,d:3,loc:'Middle Town',reward:'EXP • Money • special drop',desc:'Особый ранний противник. Полезен как отдельная цель помимо обычного гринда.'},
+ {n:'Vice Admiral',sea:1,lvl:130,d:3,loc:'Marine Fortress',reward:'EXP • Money • drops',desc:'Хорошая промежуточная цель для тренировки стабильного фарма босса.'},
+ {n:'Saber Expert',sea:1,lvl:200,d:3.5,loc:'Jungle',reward:'EXP • progression',desc:'Важная встреча, связанная с получением предмета и прогрессией.'},
+ {n:'Ice Admiral',sea:1,lvl:700,d:4,loc:'Frozen Village',reward:'EXP • progression',desc:'Один из главных рубежей Первого моря и часть маршрута перехода.'},
+ {n:'Diamond',sea:2,lvl:750,d:3,loc:'Kingdom of Rose',reward:'EXP • Money • drops',desc:'Ранний босс Второго моря после перехода в новую зону.'},
+ {n:'Jeremy',sea:2,lvl:850,d:3.5,loc:'Kingdom of Rose',reward:'EXP • Money • drops',desc:'Более требовательная цель Kingdom of Rose.'},
+ {n:'Don Swan',sea:2,lvl:1000,d:4,loc:'Kingdom of Rose',reward:'EXP • progression',desc:'Ключевой противник, связанный с дальнейшим продвижением.'},
+ {n:'Tide Keeper',sea:2,lvl:1475,d:4.5,loc:'Forgotten Island',reward:'EXP • Money • drops',desc:'Поздний босс Второго моря с повышенными требованиями к выживаемости.'},
+ {n:'rip_indra',sea:2,lvl:1500,d:5,loc:'Second Sea',reward:'Special encounter',desc:'Специальная встреча, которую не стоит воспринимать как обычный фарм-босс.'},
+ {n:'Stone',sea:3,lvl:1550,d:3.5,loc:'Port Town',reward:'EXP • Money • drops',desc:'Первый заметный босс Третьего моря на старте новой зоны.'},
+ {n:'Hydra Leader',sea:3,lvl:1675,d:4,loc:'Hydra Island',reward:'EXP • Money • drops',desc:'Продвинутая цель Hydra Island, где ошибки становятся заметнее.'},
+ {n:'Longma',sea:3,lvl:2000,d:4.5,loc:'Floating Turtle',reward:'EXP • Money • rare route',desc:'Поздняя цель высокого уровня, полезная для предметных маршрутов.'},
+ {n:'Cake Queen',sea:3,lvl:2175,d:5,loc:'Sea of Treats',reward:'EXP • Money • materials',desc:'Сильный эндгейм-босс поздней прокачки.'},
+ {n:'Greybeard',sea:'raid',lvl:750,d:5,loc:'Marine Fortress',reward:'Raid-style reward',desc:'Специальный Raid Boss с отдельными правилами появления.'},
+ {n:'Darkbeard',sea:'raid',lvl:1000,d:5,loc:'Dark Arena',reward:'Special reward',desc:'Специальная встреча, которую нужно заранее подготовить через условие вызова.'},
+ {n:'Order',sea:'raid',lvl:1250,d:4.5,loc:'Hot and Cold',reward:'Special drop',desc:'Особая встреча в Hot and Cold с отдельным условием доступа.'},
+ {n:'Dough King',sea:3,lvl:2300,d:5,loc:'Dimensional Shift',reward:'Unique drops',desc:'Raid Boss поздней игры. Имеет высокий запас здоровья и сильные способности.'}
+];
+
+function stars(n){
+ let s=''; for(let i=0;i<5;i++) s+=i<Math.floor(n)?'★':(i<Math.ceil(n)?'½':'☆'); return s;
+}
+function bossLabel(s){return s==='raid'?'SPECIAL / RAID':'МОРЕ '+s}
+function bossImage(b){
+ if(b.n==='Dough King') return 'https://wikiassets.net/bloxfruits-3-e6227a/images/05b50d845a1a088e0703005df9c38a59.webp';
+ if(b.sea===1) return 'https://wikiassets.net/bloxfruits-3bec24/images/91ec0031165a3a12d2aefc215549384b.webp';
+ if(b.sea===2) return 'https://wikiassets.net/bloxfruits-3-e6227a/images/abb2c14aea10b80e7fb819b6dafc396f.webp';
+ return 'https://wikiassets.net/bloxfruits-3-e6227a/images/3215efd693d8f904b95003b51725e94e.webp';
+}
+function renderBosses(filter='all'){
+ const list=bosses.filter(b=>filter==='all'||String(b.sea)===filter);
+ document.getElementById('bossGrid').innerHTML=list.map(b=>`
+  <article class="boss-card" onclick="openBossDetail(${bosses.indexOf(b)})">
+   <div class="boss-bg" style="background-image:url('${bossImage(b)}')"></div>
+   <div class="boss-content">
+    <div class="boss-top"><span class="boss-sea">${bossLabel(b.sea)}</span><span class="boss-lvl">Lv. ${b.lvl}</span></div>
+    <h3>${b.n}</h3>
+    <div class="boss-stars">${stars(b.d)}</div>
+    <p>${b.desc}</p>
+    <div class="boss-tags"><span>${b.loc}</span><span>${b.reward}</span></div>
+   </div>
+  </article>`).join('');
+}
+document.querySelectorAll('.boss-tool').forEach(btn=>btn.onclick=()=>{
+ document.querySelectorAll('.boss-tool').forEach(x=>x.classList.remove('active'));
+ btn.classList.add('active'); renderBosses(btn.dataset.filter);
+});
+
+const seaData={
+ sea1:{
+  title:'ПЕРВОЕ МОРЕ',tag:'УРОВНИ 1–700',img:'https://wikiassets.net/bloxfruits-3bec24/images/91ec0031165a3a12d2aefc215549384b.webp',
+  desc:'Стартовая зона Blox Fruits. Здесь игрок впервые выбирает сторону, осваивает движение, бой, квесты и путешествия между островами.',
+  stats:[['1–700','Диапазон уровней'],['Старт','Точка входа'],['Update 30','Полный rework'],['PvE','Главный фокус']],
+  blocks:[
+   ['Как начинается путь','Игрок появляется на Marine Starter Island или Pirate Starter Island в зависимости от выбранной стороны. Стартовые зоны специально построены так, чтобы познакомить с базовыми клавишами движения и первыми боями.'],
+   ['Острова','Pirate Starter, Marine Starter, Middle Town, Jungle, Pirate Village, Desert, Frozen Village, Marine Fortress, Skylands, Prison, Colosseum, Magma Village, Underwater City, Upper Skylands и Fountain City образуют основную цепочку.'],
+   ['Что важно знать','Первое море считается самым безопасным и простым для освоения. После Update 30 оно получило большой визуальный и контентный rework, поэтому старые гайды могут показывать устаревший вид островов.'],
+   ['Подготовка к 700','Не обязательно собирать идеальный эндгейм-билд. Важнее стабильный урон, удобный фрукт/стиль, достаточный Defense и понимание того, где находится следующий Quest Giver.']
+  ],
+  checks:['Открыть удобный Home Point','Понять квестовую систему','Выбрать комфортный фрукт или стиль','Проверять новые острова','Подготовить переход на 700+']
+ },
+ sea2:{
+  title:'ВТОРОЕ МОРЕ',tag:'УРОВНИ 700–1500',img:'https://wikiassets.net/bloxfruits-3-e6227a/images/abb2c14aea10b80e7fb819b6dafc396f.webp',
+  desc:'Промежуточное море, где игра становится глубже: появляются Fragments, рейды, пробуждения и более серьёзные боссы.',
+  stats:[['700–1500','Диапазон уровней'],['Fragments','Новая валюта'],['700+','Участие в рейдах'],['1100+','Хост рейда']],
+  blocks:[
+   ['Как попасть','Нужно достичь уровня 700+, поговорить с Military Detective, получить специальный ключ, открыть дверь в Frozen Village, победить Ice Admiral и затем воспользоваться Experienced Captain.'],
+   ['Главные острова','Kingdom of Rose, Green Zone, Graveyard, Snow Mountain, Hot and Cold, Cursed Ship, Ice Castle и Forgotten Island составляют основную цепочку Второго моря.'],
+   ['Новые системы','Здесь игрок знакомится с Fragments, Titles и Raids. Fragments используются для ряда покупок и пробуждения способностей фруктов после успешных рейдов.'],
+   ['Что меняется','NPC становятся сильнее, Aura встречается чаще, а обычный Elemental Reflex становится менее универсальным. Поэтому здесь уже важнее полноценный билд, а не только удобный фрукт.']
+  ],
+  checks:['Завершить переход через Military Detective','Освоить Fragments','Открыть рейды','Собрать полноценный билд','Подготовить путь к 1500']
+ },
+ sea3:{
+  title:'ТРЕТЬЕ МОРЕ',tag:'УРОВЕНЬ 1500+',img:'https://wikiassets.net/bloxfruits-3-e6227a/images/3215efd693d8f904b95003b51725e94e.webp',
+  desc:'Текущая финальная зона прогрессии. Здесь сосредоточены продвинутые билды, PvP, Race Awakenings, Sea Danger Levels и эндгейм-цели.',
+  stats:[['1500+','Входной уровень'],['Эндгейм','Основной фокус'],['0–6','Sea Danger Levels'],['PvP','Высокая роль']],
+  blocks:[
+   ['Как попасть','Нужно достичь Lv. 1500, выполнить Colosseum Quest, победить Don Swan и помочь King Red Head подавить rip_indra во Втором море. После этого Mr. Captain отправляет игрока в Port Town.'],
+   ['Острова','Port Town, Hydra Island, Great Tree, Floating Turtle, Castle on the Sea, Haunted Castle, Sea of Treats, Tiki Outpost и Submerged Island формируют основной контент.'],
+   ['Эндгейм-механики','Третье море связано с мощными fighting styles, swords, guns и Race Awakenings. Здесь также присутствуют Sea Danger Levels и дополнительные Sea Events.'],
+   ['Почему здесь сложнее','Острова расположены дальше друг от друга, враги сильнее, Aura встречается чаще, а bounty hunters становятся заметно более частой угрозой. Поэтому мобильность и устойчивый билд особенно важны.']
+  ],
+  checks:['Открыть Third Sea','Собрать эндгейм-билд','Изучить Sea Events','Разобраться с Danger Levels','Выбрать PvE или PvP направление']
+ },
+ map:{
+  title:'КАРТА BloxBase',tag:'МОРЯ • ОСТРОВА • МАРШРУТЫ',img:'https://wikiassets.net/bloxfruits-3-e6227a/images/b93e5bf13671471fc4bbb1b4df74d8ac.webp',
+  desc:'Карта — отправная точка, когда ты не знаешь, куда идти. Она должна связывать море, уровень, остров, квест, босса и следующий этап.',
+  stats:[['3','Моря'],['Острова','Полный маршрут'],['NPC','Квестовые точки'],['Boss','Цели фарма']],
+  blocks:[
+   ['Как пользоваться','Сначала определяй море и уровень. Затем выбирай остров и проверяй Quest Giver. Если цель — предмет, дополнительно ищи конкретного босса или условие получения.'],
+   ['Почему одной карты мало','Один и тот же остров может быть связан с квестом, боссом, NPC, секретом или рейдом. Поэтому BloxBase показывает не только географию, но и контекст.'],
+   ['Маршрут','Лучший маршрут — не всегда просто следующий остров. Иногда выгоднее остановиться ради босса, предмета, стиля боя или рейда, если это заметно улучшает будущую прокачку.'],
+   ['Изображения','Каждый крупный визуальный блок теперь использует Blox Fruits-изображение, соответствующее теме: карты морей, Raid Room, фрукты и игровые локации.']
+  ],
+  checks:['Определи море','Проверь диапазон уровня','Найди остров','Посмотри босса и награды','Проверь следующую цель']
+ }
+};
+
+function openSeaDetail(id){
+ const d=seaData[id];
+ document.getElementById('seaDetailBox').innerHTML=`
+  <button class="close" onclick="closeSeaDetail()">×</button>
+  <div class="detail-hero" style="background-image:url('${d.img}')">
+   <div class="detail-hero-copy"><div class="eyebrow">${d.tag}</div><h3>${d.title}</h3><p>${d.desc}</p></div>
+  </div>
+  <div class="detail-body">
+   <div class="detail-stats">${d.stats.map(x=>`<div class="detail-stat"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>
+   <div class="detail-columns">
+    <div>${d.blocks.map(x=>`<article class="detail-panel"><h4>${x[0]}</h4><p>${x[1]}</p></article>`).join('')}</div>
+    <aside class="detail-panel"><h4>Чек-лист</h4><div class="checklist">${d.checks.map(x=>`<div>${x}</div>`).join('')}</div></aside>
+   </div>
+  </div>`;
+ document.getElementById('seaDetailModal').classList.add('open');
+}
+function closeSeaDetail(){document.getElementById('seaDetailModal').classList.remove('open')}
+
+function openBossDetail(i){
+ const b=bosses[i];
+ document.getElementById('bossDetailBox').innerHTML=`
+  <button class="close" onclick="closeBossDetail()">×</button>
+  <div class="boss-detail-head">
+   <div class="eyebrow">${bossLabel(b.sea)} • ${b.loc}</div>
+   <h3>${b.n}</h3>
+   <p>${b.desc}</p>
+  </div>
+  <div class="boss-detail-body">
+   <div class="detail-grid">
+    <div class="detail-box"><b>УРОВЕНЬ</b><span>${b.lvl}</span></div>
+    <div class="detail-box"><b>СЛОЖНОСТЬ</b><span>${stars(b.d)} / 5 — ориентир</span></div>
+    <div class="detail-box"><b>ЛОКАЦИЯ</b><span>${b.loc}</span></div>
+    <div class="detail-box"><b>НАГРАДЫ</b><span>${b.reward}</span></div>
+    <div class="detail-box"><b>ТИП</b><span>${b.sea==='raid'?'Специальный / Raid Boss':'Обычный или progression boss'}</span></div>
+    <div class="detail-box"><b>ПОДГОТОВКА</b><span>HP + энергия + мобильность + стабильная ротация.</span></div>
+    <div class="detail-box" style="grid-column:1/-1"><b>КАК ФАРМИТЬ</b><p>Если цель — EXP, сравнивай время убийства с обычными NPC рядом. Если цель — предмет, сначала проверяй условие дропа. Для специальных встреч сначала разбирай способ появления, а затем собирай команду.</p></div>
+   </div>
+  </div>`;
+ document.getElementById('bossDetailModal').classList.add('open');
+}
+function closeBossDetail(){document.getElementById('bossDetailModal').classList.remove('open')}
+
+function openRaidDetail(){
+ openSeaDetail('map');
+ setTimeout(()=>{
+  const d=document.getElementById('seaDetailBox');
+  d.querySelector('.detail-hero-copy .eyebrow').textContent='700+ УЧАСТИЕ • 1100+ ХОСТ';
+  d.querySelector('.detail-hero-copy h3').textContent='РЕЙДЫ';
+  d.querySelector('.detail-hero-copy p').textContent='Специальные события Второго и Третьего моря: пять островов, усиливающиеся волны NPC, Raid Boss на финальном острове, Fragments и пробуждение фруктов.';
+  const body=d.querySelector('.detail-body');
+  body.innerHTML=`
+   <div class="detail-stats">
+    <div class="detail-stat"><b>700+</b><span>уровень для участия</span></div>
+    <div class="detail-stat"><b>1100+</b><span>уровень для хостинга</span></div>
+    <div class="detail-stat"><b>5</b><span>островов в рейде</span></div>
+    <div class="detail-stat"><b>300–1000</b><span>Fragments в зависимости от результата</span></div>
+   </div>
+   <div class="detail-columns">
+    <div>
+     <article class="detail-panel"><h4>Как проходит рейд</h4><p>Каждый рейд состоит из пяти островов. На каждом появляются NPC, причём последующие острова становятся сложнее. Чтобы перейти дальше, нужно победить всех врагов. На пятом острове появляется Raid Boss.</p></article>
+     <article class="detail-panel"><h4>Зачем нужны рейды</h4><p>Главные причины — получение Fragments и пробуждение способностей Blox Fruits. После успешного прохождения с соответствующим фруктом игрок попадает к Mysterious Entity и может потратить Fragments на awakening.</p></article>
+     <article class="detail-panel"><h4>Basic и Advanced</h4><p>Basic Raid запускается через Microchip. Advanced Raids существуют для отдельных фруктов и требуют специального Advanced Raid Microchip.</p></article>
+    </div>
+    <aside class="detail-panel"><h4>Что взять с собой</h4><div class="checklist">
+     <div>Удобный PvE-фрукт</div><div>Достаточно HP</div><div>Мобильность</div><div>Команду до 4 игроков</div><div>Нужный Microchip</div><div>План для финального босса</div>
+    </div></aside>
+   </div>`;
+ },20);
+}
+
+function openFruitDetail(i){
+ const f=fruits[i];
+ document.getElementById('bossDetailBox').innerHTML=`
+  <button class="close" onclick="closeBossDetail()">×</button>
+  <div class="fruit-detail-top">
+   <div class="fruit-detail-img"><img src="${f.i}" alt="${f.n}" loading="lazy"></div>
+   <div><div class="eyebrow">${f.t.toUpperCase()} • ${f.role}</div><h3>${f.n}</h3><p>${f.desc} В расширенной версии BloxBase карточка рассматривает фрукт не изолированно, а как часть полноценного билда.</p></div>
+  </div>
+  <div class="boss-detail-body">
+   <div class="detail-grid">
+    <div class="detail-box"><b>РОЛЬ</b><span>${f.role}</span></div>
+    <div class="detail-box"><b>ТИП</b><span>${f.t}</span></div>
+    <div class="detail-box"><b>PVE</b><span>Смотри на скорость убийства NPC, AoE и удобство фарма.</span></div>
+    <div class="detail-box"><b>PVP</b><span>Смотри на контроль, комбо, мобильность и безопасный старт боя.</span></div>
+    <div class="detail-box"><b>РЕЙДЫ</b><span>Оценивай дальность, устойчивость и способность чистить группы.</span></div>
+    <div class="detail-box"><b>БИЛД</b><span>Fruit + Melee + Defense + Sword/Gun + аксессуар.</span></div>
+    <div class="detail-box" style="grid-column:1/-1"><b>ВАЖНО</b><p>Не существует одного лучшего фрукта для всех задач. Уровень, mastery, статы, аксессуар и цель игрока меняют итоговую эффективность.</p></div>
+   </div>
+  </div>`;
+ document.getElementById('bossDetailModal').classList.add('open');
+}
+
+function openInfo(t,p){
+ document.getElementById('modalTitle').textContent=t;
+ document.getElementById('modalText').textContent=p;
+ document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+function openSearch(){
+ document.getElementById('fruits').scrollIntoView({behavior:'smooth'});
+ setTimeout(()=>document.getElementById('fruitSearch').focus(),500);
+}
+window.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){closeModal();closeSeaDetail();closeBossDetail();}
+});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>30));
+renderФрукты();
+renderBosses();
+</script>
+
+
+<script id="bloxbase-youth-enhancer">
+document.addEventListener('DOMContentLoaded',()=>{
+  // Give plain text information a more game-like hierarchy without changing content or images.
+  document.querySelectorAll('.boss-card,.fruit-card,.ultimate-card,.info-card,.guide-card,.feature-card').forEach(card=>{
+    const heading=card.querySelector('h2,h3,h4');
+    if(heading && !card.querySelector('.bb-kicker')){
+      const k=document.createElement('div');
+      k.className='bb-kicker';
+      k.textContent=card.classList.contains('boss-card')?'BOSS DATABASE':
+                    card.classList.contains('fruit-card')?'FRUIT DATABASE':
+                    card.classList.contains('guide-card')?'GUIDE':
+                    card.classList.contains('ultimate-card')?'BLOXBASE DATABASE':'INFO';
+      heading.parentNode.insertBefore(k,heading);
+    }
+  });
+  // Convert long paragraphs into readable rhythm.
+  document.querySelectorAll('.modal-content p,.modal-box p,.detail-modal p').forEach(p=>{
+    if(p.textContent.trim().length>180) p.style.maxWidth='78ch';
+  });
+});
+</script>
+
+
+<div class="video-modal" id="videoModal" onclick="if(event.target===this)closeGuideVideo()">
+ <div class="video-shell">
+  <div class="video-top">
+   <div><div class="label">BLOXBASE • VIDEO GUIDE</div><h3 id="videoTitle">Гайд</h3></div>
+   <button class="video-close" onclick="closeGuideVideo()">×</button>
+  </div>
+  <div class="video-frame"><iframe id="guideVideo" src="" title="Blox Fruits guide" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>
+  <div class="video-bottom"><span>Видео открывается прямо внутри BloxBase.</span><a id="videoExternal" href="#" target="_blank" rel="noopener">Открыть на YouTube ↗</a></div>
+ </div>
+</div>
+
+
+<script id="bloxbase-motion-script">
+const guideVideos=[
+ {title:'Полный гайд по рейдам и фарму Fragments',id:'qLLj3VANuPI'},
+ {title:'Как начать играть в Blox Fruits в 2026',id:'Oa3As_J2F-k'},
+ {title:'Все Fighting Styles — полный разбор',id:'bG8YkYApaV0'}
+];
+function openGuideVideo(i){
+ const v=guideVideos[i]||guideVideos[0];
+ document.getElementById('videoTitle').textContent=v.title;
+ document.getElementById('guideVideo').src='https://www.youtube.com/embed/'+v.id+'?autoplay=1&rel=0';
+ document.getElementById('videoExternal').href='https://www.youtube.com/watch?v='+v.id;
+ document.getElementById('videoModal').classList.add('open');
+ document.body.style.overflow='hidden';
+}
+function closeGuideVideo(){
+ const m=document.getElementById('videoModal');
+ if(!m)return;
+ m.classList.remove('open');
+ const frame=document.getElementById('guideVideo');
+ frame.src='';
+ document.body.style.overflow='';
+}
+
+// Cinematic reveal animation throughout the page.
+document.addEventListener('DOMContentLoaded',()=>{
+ const targets=document.querySelectorAll('.section-head,.tour,.topic-card,.boss-card,.fruit,.info-card,.route-card,.tip,.step,.gallery .g,.card,.feature-copy');
+ targets.forEach(el=>el.classList.add('bb-reveal'));
+ const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('bb-visible');io.unobserve(e.target)}})
+ },{threshold:.10,rootMargin:'0px 0px -45px 0px'});
+ targets.forEach(el=>io.observe(el));
+});
+window.addEventListener('keydown',e=>{if(e.key==='Escape')closeGuideVideo()});
+</script>
+
+
+<script id="bloxbase-back-navigation">
+(function(){
+  const modalSelectors=['#modal','#seaDetailModal','#bossDetailModal'];
+  function closeAllModals(){
+    modalSelectors.forEach(sel=>{
+      const el=document.querySelector(sel);
+      if(el) el.classList.remove('open');
+      if(el) el.style.display='';
+    });
+    document.body.classList.remove('modal-open');
+    const iframe=document.querySelector('.bb-video-frame');
+    if(iframe) iframe.src='';
+  }
+  function addBackButtons(){
+    document.querySelectorAll('#modal .modal-box,#seaDetailModal .modal-content,#seaDetailModal .modal-box,#bossDetailModal .modal-content,#bossDetailModal .modal-box,.detail-modal').forEach(box=>{
+      if(box.querySelector('.bb-back')) return;
+      const b=document.createElement('button');
+      b.type='button'; b.className='bb-back';
+      b.innerHTML='← Назад';
+      b.setAttribute('aria-label','Вернуться назад');
+      b.onclick=closeAllModals;
+      box.classList.add('bb-with-back');
+      box.appendChild(b);
+    });
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    addBackButtons();
+
+    // Close by backdrop click.
+    modalSelectors.forEach(sel=>{
+      const m=document.querySelector(sel);
+      if(!m) return;
+      m.addEventListener('click',e=>{
+        if(e.target===m) closeAllModals();
+      });
+    });
+
+    // Close with Escape.
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape') closeAllModals();
+    });
+
+    // Patch any dynamically-created detail modal content.
+    const obs=new MutationObserver(addBackButtons);
+    obs.observe(document.body,{childList:true,subtree:true});
+  });
+
+  window.bloxBaseCloseAll=closeAllModals;
+})();
+</script>
+
+<script id="bloxbase-guide-fix">
+document.addEventListener('DOMContentLoaded',()=>{
+  // Guide/video cards: add an obvious visual "OPEN VIDEO" cue.
+  document.querySelectorAll('.guide-card,.gallery .g,.feature .video-btn').forEach(card=>{
+    if(card.querySelector('.bb-video-cue')) return;
+    const cue=document.createElement('span');
+    cue.className='bb-video-cue';
+    cue.textContent='▶ СМОТРЕТЬ';
+    cue.style.cssText='position:absolute;right:14px;top:14px;z-index:4;padding:7px 9px;border:1px solid rgba(53,231,225,.45);background:rgba(0,0,0,.55);backdrop-filter:blur(8px);color:#7af8ef;font:800 9px Inter,sans-serif;letter-spacing:.8px;border-radius:999px;';
+    if(getComputedStyle(card).position==='static') card.style.position='relative';
+    card.appendChild(cue);
+  });
+});
+</script>
+</body>
+</html>
